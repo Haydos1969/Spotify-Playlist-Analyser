@@ -30,6 +30,18 @@ class SpotifyAPI:
        return [response.status_code, response.text]
     else:
        return [response.status_code, response.text]
+    
+  def getRequest(self, url, headers):
+      response = requests.get(url=url, headers=headers)
+      return response.text, response.status_code
   
 API = SpotifyAPI()
 print(API.requestAccessToken())
+
+headers = {
+    "Authorization": f"Bearer {API.accessToken}"
+}
+
+text, code = API.getRequest("https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb", headers)
+
+print(text)
