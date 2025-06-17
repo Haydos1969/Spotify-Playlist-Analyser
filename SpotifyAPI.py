@@ -1,5 +1,4 @@
-import requests
-import spotipy
+import requests, json, spotipy 
 from spotipy.oauth2 import SpotifyOAuth
 
 class SpotifyAPI:
@@ -38,9 +37,17 @@ class SpotifyAPI:
          client_id=self.CLIENT_ID,
          client_secret= self.API_KEY,
          redirect_uri="http://127.0.0.1:8888/callback",
-         scope="user-library-read user-read-private"
+         scope="user-library-read user-read-private playlist-read-private playlist-read-collaborative"
       ))
       self.authUser = sp
+
+      with open('.cache', 'r') as f:
+         cacheData = json.load(f)
+      if (cacheData["access_token"]):
+         self.accessToken = cacheData['access_token']
+      else:
+         print("No access token found")
+
 
    def getRequest(self, url, headers):
          response = requests.get(url=url, headers=headers)

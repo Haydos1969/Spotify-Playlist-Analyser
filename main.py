@@ -5,11 +5,16 @@ API = SpotifyAPI()
 #print(API.requestAccessToken())
 API.authenticateUser()
 
-print(API.authUser.current_user())
+#print(API.authUser.current_user())
 
 headers = {
-    "Authorization": f"Bearer {API.accessToken}"
+    "Authorization": f"Bearer {API.accessToken}",
+    "limit" : "50"
 }
 
-spotifyID = "nh6wd77lqlracq6pb203uol6o"#input("Enter Your Spotify ID: ")
-url = "https://api.spotify.com/v1/users/" + spotifyID + "/playlists"
+url = "https://api.spotify.com/v1/me/playlists"
+
+response, statusCode = API.getRequest(url, headers)
+
+for i in response["items"]:
+  print(i['name'])
