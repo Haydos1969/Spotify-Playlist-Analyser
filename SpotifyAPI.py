@@ -51,4 +51,23 @@ class SpotifyAPI:
 
    def getRequest(self, url, headers):
          response = requests.get(url=url, headers=headers)
-         return response.json(), response.status_code
+         if response:
+            return response.json()
+         else:
+            print(response.status_code)
+   
+
+   def getPlaylistItems(self, playlistID):
+      url = f"https://api.spotify.com/v1/playlists/{playlistID}/tracks"
+      headers = {
+         "Authorization": f"Bearer {self.accessToken}",
+         "limit" : "50"
+      }
+      response = self.getRequest(url, headers)
+      playlistItems = []
+      if response:
+         for i in response["items"]:
+            playlistItems.append(i["track"])
+         return playlistItems
+      else:
+         return response

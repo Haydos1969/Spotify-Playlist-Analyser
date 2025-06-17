@@ -14,7 +14,7 @@ headers = {
 
 url = "https://api.spotify.com/v1/me/playlists"
 
-response, statusCode = API.getRequest(url, headers)
+response = API.getPlaylistItems("https://open.spotify.com/playlist/5upr6hJW02oedibLwpAwvj?si=8513499a9b0949d7")
 
-for i in response["items"]:
+for i in response['items']:
   print(i['name'])
