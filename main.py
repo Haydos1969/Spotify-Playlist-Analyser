@@ -8,6 +8,11 @@ headers = {
     "Authorization": f"Bearer {API.accessToken}"
 }
 
-text, code = API.getRequest("https://api.spotify.com/v1/artists/4Z8W4fKeB5YxbusRsdQVPb", headers)
+spotifyID = "nh6wd77lqlracq6pb203uol6o"#input("Enter Your Spotify ID: ")
+url = "https://api.spotify.com/v1/users/" + spotifyID + "/playlists"
 
-print(text)
+
+text, code = API.getRequest(url, headers)
+print(type(text))
+for i in text["items"]:
+  print(i["name"])

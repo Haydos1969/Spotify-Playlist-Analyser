@@ -27,10 +27,10 @@ class SpotifyAPI:
     if response.ok:
        accessToken = response.json()
        self.accessToken = accessToken.get("access_token")
-       return [response.status_code, response.text]
+       return [response.text, response.status_code]
     else:
-       return [response.status_code, response.text]
+       return [response.text, response.status_code]
     
   def getRequest(self, url, headers):
       response = requests.get(url=url, headers=headers)
-      return response.text, response.status_code
+      return response.json(), response.status_code
